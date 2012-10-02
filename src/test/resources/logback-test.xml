@@ -1,0 +1,18 @@
+<configuration>
+    
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        
+        <encoder>
+            <Pattern>%-4relative [%thread] %-5level - %logger{15}: %msg %n</Pattern>
+        </encoder>
+        
+    </appender>
+
+    <logger name="com.pynode" level="TRACE"/>
+    <logger name="org.apache.cxf" level="INFO"/>
+
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </root>
+    
+</configuration>

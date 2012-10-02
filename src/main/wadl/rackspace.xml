@@ -1,0 +1,1180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns:csapi="http://docs.rackspacecloud.com/servers/api/v1.0" 
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+             xmlns="http://wadl.dev.java.net/2009/02" 
+             xsi:schemaLocation="http://docs.rackspacecloud.com/servers/api/v1.0 xsd/api.xsd
+                                 http://wadl.dev.java.net/2009/02 wadl.xsd">
+    <grammars>
+        <include href="xsd/api.xsd"/>
+    </grammars>
+    <resources base="http://api-n03.wc2.dfw1.stabletransit.com:8080">
+        <resource path="/v1.0/" id="Versions">
+            <method id="versionDetails" name="GET">
+                
+                <response status="200 203">
+                    <representation element="csapi:version" mediaType="application/xml"/>
+                    <representation mediaType="application/json"/>
+                </response>
+                <response status="500">
+                    <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                    <representation mediaType="application/json"/>
+                </response>
+                <response status="503">
+                    <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                    <representation mediaType="application/json"/>
+                </response>
+                <response status="400">
+                    <representation element="csapi:badRequest" mediaType="application/xml"/>
+                    <representation mediaType="application/json"/>
+                </response>
+                <response status="401">
+                    <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                    <representation mediaType="application/json"/>
+                </response>
+                
+            </method>
+            <resource path="{accountId}" id="AccountID">
+                <param type="xsd:long" style="template" name="accountId"/>
+                <!-- =====================================
+                                    LIMITS 
+                     ===================================== -->
+                <resource path="limits" id="Limits">                    
+                    <method id="listLimits" name="GET">
+                        
+                        <request>
+                            <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                        </request>
+                        
+                        <response status="200 203">                            
+                            <representation element="csapi:limits" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="500">
+                            <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="503">
+                            <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="400">
+                            <representation element="csapi:badRequest" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="401">
+                            <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        
+                    </method>
+                </resource>
+                <!-- =====================================
+                                    IMAGES 
+                     ===================================== -->
+                <resource path="images" id="Images">
+                    <method id="listImages" name="GET">
+                        
+                        <request>
+                            <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                            <param type="xsd:long" style="query" name="changes-since"/>
+                            <param type="xsd:long" style="query" name="offset"/>
+                            <param type="xsd:long" style="query" name="limit"/>
+                        </request>
+                        
+                        <response status="200 203">
+                            <representation element="csapi:images" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>                            
+                        </response>
+                        <response status="500">
+                            <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="503">
+                            <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="400">
+                            <representation element="csapi:badRequest" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="401">
+                            <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="413">
+                            <representation element="csapi:overLimit" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        
+                    </method>
+                    
+                    <method id="createImage" name="POST">
+                        <request>
+                            <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                            <representation element="csapi:image" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </request>
+                        
+                        <response status="202">
+                            <representation element="csapi:image" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>                            
+                        </response>
+                        <response status="500">
+                            <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="503">
+                            <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                            <representation element="csapi:serverCapacityUnavailable" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="400">
+                            <representation element="csapi:badRequest" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="401">
+                            <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="413">
+                            <representation element="csapi:overLimit" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="415">
+                            <representation element="csapi:badMediaType" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="404">
+                            <representation element="csapi:buildInProgress" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="409">
+                            <representation element="csapi:buildInProgress" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="403">
+                            <representation element="csapi:resizeNotAllowed" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="409">
+                            <representation element="csapi:backupOrResizeInProgress" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                    </method>
+                    
+                    <resource path="detail">
+                        <method id="listImagesDetail" name="GET">
+                            <request>
+                                <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                                <param type="xsd:long" style="query" name="changes-since"/>
+                                <param type="xsd:long" style="query" name="offset"/>
+                                <param type="xsd:long" style="query" name="limit"/>
+                            </request>                            
+                            
+                            <response status="200 203">
+                                <representation element="csapi:images" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>                            
+                            </response>
+                            <response status="400">
+                                <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="500">
+                                <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="503">
+                                <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="401">
+                                <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response  status="413">
+                                <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                        </method>
+                    </resource>
+                    
+                    <resource path="{imageId}">
+                        <param type="xsd:int" style="template" name="imageId"/>
+                        <method id="getImage" name="GET">
+                            <request>
+                                <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                            </request>
+                            
+                            <response status="200 203">
+                                <representation element="csapi:image" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>                            
+                            </response> 
+                            <response status="400">
+                                <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="500">
+                                <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="503">
+                                <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="401">
+                                <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>                          
+                            <response status="404">
+                                <representation element="csapi:itemNotFound" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                        </method>
+                        
+                        <method id="deleteImage" name="DELETE">
+                            <request>
+                                <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                            </request>
+                            
+                            <response status="204" /> 
+                            
+                            <response status="400">
+                                <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="500">
+                                <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="503">
+                                <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="401">
+                                <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response  status="413">
+                                <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="404">
+                                <representation element="csapi:itemNotFound" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                        </method>
+                    </resource>
+                    
+                </resource>                
+                <!-- =====================================
+                                    SERVERS 
+                     ===================================== -->                
+                <resource path="servers" id="Servers">
+                    <method id="listServers" name="GET">
+                        <request>                            
+                            <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                            <param type="xsd:long" style="query" name="changes-since"/>
+                            <param type="xsd:long" style="query" name="offset"/>
+                            <param type="xsd:long" style="query" name="limit"/>
+                        </request>
+                        
+                        <response status="200 203">
+                            <representation element="csapi:servers" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>                        
+                        <response status="400">
+                            <representation element="csapi:badRequest" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="500">
+                            <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="503">
+                            <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="401">
+                            <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response  status="413">
+                            <representation element="csapi:overLimit" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                    </method>
+                    
+                    <method id="createServer" name="POST">
+                        <request>                            
+                            <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                            <representation element="csapi:server" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </request>
+                        
+                        <response status="202">
+                            <representation element="csapi:server" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>                        
+                        <response status="400">
+                            <representation element="csapi:badRequest" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="500">
+                            <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="503">
+                            <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                            <representation element="csapi:serverCapacityUnavailable" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="401">
+                            <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response  status="413">
+                            <representation element="csapi:overLimit" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="404">
+                            <representation element="csapi:itemNotFound" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response  status="415">
+                            <representation element="csapi:badMediaType" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                    </method>
+                    
+                    <resource path="detail">
+                        <method id="listServersDetail" name="GET">
+                            <request>
+                                <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                                <param type="xsd:long" style="query" name="changes-since"/>
+                                <param type="xsd:long" style="query" name="offset"/>
+                                <param type="xsd:long" style="query" name="limit"/>
+                            </request>
+                            
+                            <response status="200 203">
+                                <representation element="csapi:servers" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>                        
+                            <response status="400">
+                                <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="500">
+                                <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="503">
+                                <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                <representation element="csapi:serverCapacityUnavailable" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="401">
+                                <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response  status="413">
+                                <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                        </method>
+                    </resource>
+                    
+                    <resource path="{serverId}" id="ServerID">
+                        <param type="xsd:int" style="template" name="serverId"/>
+                        <method id="getServer" name="GET">
+                            <request>                            
+                                <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>    
+                            </request>
+                            
+                            <response status="200 203">
+                                <representation element="csapi:server" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>                        
+                            <response status="400">
+                                <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="500">
+                                <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="503">
+                                <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="401">
+                                <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response  status="413">
+                                <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="404">
+                                <representation element="csapi:itemNotFound" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                        </method>
+                        
+                        <method id="updateServer" name="PUT">
+                            <request>
+                                <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                                <representation element="csapi:server" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </request>
+                            
+                            <response status="204" />                                                  
+                            <response status="400">
+                                <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="500">
+                                <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="503">
+                                <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="401">
+                                <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response  status="413">
+                                <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="404">
+                                <representation element="csapi:itemNotFound" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="415">
+                                <representation element="csapi:badMediaType" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="409">
+                                <representation element="csapi:buildInProgress" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                        </method>
+                        
+                        <method id="deleteServer" name="DELETE">
+                            <request>
+                                <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                            </request>
+                            
+                            <response status="204" />                                                  
+                            <response status="400">
+                                <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="500">
+                                <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="503">
+                                <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="401">
+                                <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response  status="413">
+                                <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="404">
+                                <representation element="csapi:itemNotFound" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="409">
+                                <representation element="csapi:buildInProgress" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                        </method>
+                        <!-- =====================================
+                                        SERVER ADDRESSES
+                             ===================================== --> 
+                        <resource path="ips" id="ServerAddresses">
+                            <method id="getServerAddresses" name="GET">
+                                <request>
+                                    <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                                    <param type="xsd:long" style="query" name="changes-since"/>
+                                </request>
+                                
+                                <response status="200 203">
+                                    <representation element="csapi:addresses" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>                                                  
+                                <response status="400">
+                                    <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="500">
+                                    <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="503">
+                                    <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="401">
+                                    <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response  status="413">
+                                    <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                            </method>
+                            
+                            <resource path="public">
+                                <method id="getServerPublicAddresses" name="GET">
+                                    <request>
+                                        <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                                        <param type="xsd:long" style="query" name="changes-since"/>
+                                    </request>
+                                    
+                                    <response status="200 203">
+                                        <representation element="csapi:public" mediaType="application/xml"/>
+                                        <representation mediaType="application/json"/>
+                                    </response>                                                  
+                                    <response status="400">
+                                        <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                        <representation mediaType="application/json"/>
+                                    </response>
+                                    <response status="500">
+                                        <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                        <representation mediaType="application/json"/>
+                                    </response>
+                                    <response status="503">
+                                        <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                        <representation mediaType="application/json"/>
+                                    </response>
+                                    <response status="401">
+                                        <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                        <representation mediaType="application/json"/>
+                                    </response>
+                                    <response  status="413">
+                                        <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                        <representation mediaType="application/json"/>
+                                    </response>
+                                </method>
+                                
+                                <resource path="{shareIp}">
+                                    <param type="xsd:string" style="template" name="shareIp"/>
+                                    <method id="shareIp" name="PUT">
+                                        <request>
+                                            <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                                            <representation element="csapi:shareIp" mediaType="application/xml"/>
+                                            <representation mediaType="application/json"/>
+                                        </request>
+                                        
+                                        <response status="202" />                                                  
+                                        <response status="400">
+                                            <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                            <representation mediaType="application/json"/>
+                                        </response>
+                                        <response status="500">
+                                            <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                            <representation mediaType="application/json"/>
+                                        </response>
+                                        <response status="503">
+                                            <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                            <representation mediaType="application/json"/>
+                                        </response>
+                                        <response status="401">
+                                            <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                            <representation mediaType="application/json"/>
+                                        </response>
+                                        <response  status="413">
+                                            <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                            <representation mediaType="application/json"/>
+                                        </response>
+                                        <response  status="415">
+                                            <representation element="csapi:badMediaType" mediaType="application/xml"/>
+                                            <representation mediaType="application/json"/>
+                                        </response>
+                                        <response status="404">
+                                            <representation element="csapi:itemNotFound" mediaType="application/xml"/>
+                                            <representation mediaType="application/json"/>
+                                        </response>
+                                    </method>
+                                    
+                                    <method id="unshareIp" name="DELETE">
+                                        <request>
+                                            <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                                        </request>
+                                        
+                                        <response status="202" />                                                  
+                                        <response status="400">
+                                            <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                            <representation mediaType="application/json"/>
+                                        </response>
+                                        <response status="500">
+                                            <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                            <representation mediaType="application/json"/>
+                                        </response>
+                                        <response status="503">
+                                            <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                            <representation mediaType="application/json"/>
+                                        </response>
+                                        <response status="401">
+                                            <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                            <representation mediaType="application/json"/>
+                                        </response>
+                                        <response  status="413">
+                                            <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                            <representation mediaType="application/json"/>
+                                        </response>
+                                        <response  status="415">
+                                            <representation element="csapi:badMediaType" mediaType="application/xml"/>
+                                            <representation mediaType="application/json"/>
+                                        </response>
+                                        <response status="404">
+                                            <representation element="csapi:itemNotFound" mediaType="application/xml"/>
+                                            <representation mediaType="application/json"/>
+                                        </response>
+                                    </method>
+                                </resource>
+                            </resource>
+                            
+                            <resource path="private">
+                                <method id="getServerPrivateAddresses" name="GET">
+                                    <request>
+                                        <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                                        <param type="xsd:long" style="query" name="changes-since"/>
+                                    </request>
+                                    
+                                    <response status="200 203">
+                                        <representation element="csapi:private" mediaType="application/xml"/>
+                                        <representation mediaType="application/json"/>
+                                    </response>                                                  
+                                    <response status="400">
+                                        <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                        <representation mediaType="application/json"/>
+                                    </response>
+                                    <response status="500">
+                                        <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                        <representation mediaType="application/json"/>
+                                    </response>
+                                    <response status="503">
+                                        <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                        <representation mediaType="application/json"/>
+                                    </response>
+                                    <response status="401">
+                                        <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                        <representation mediaType="application/json"/>
+                                    </response>
+                                    <response  status="413">
+                                        <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                        <representation mediaType="application/json"/>
+                                    </response>
+                                </method>
+                            </resource>
+                        </resource>
+                        <!-- =====================================
+                                         SERVER ACTIONS
+                             ===================================== -->
+                        <resource path="action">
+                            <method id="action" name="POST">
+                                <request>
+                                    <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                                    <representation element="csapi:reboot" mediaType="application/xml"/>
+                                    <representation element="csapi:rebuild" mediaType="application/xml"/>
+                                    <representation element="csapi:resize" mediaType="application/xml"/>
+                                    <representation element="csapi:confirmResize" mediaType="application/xml"/>
+                                    <representation element="csapi:revertResize" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </request>
+                                
+                                <response status="202 204" />                                                 
+                                <response status="400">
+                                    <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="500">
+                                    <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="503">
+                                    <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                    <representation element="csapi:serverCapacityUnavailable" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="401">
+                                    <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="413">
+                                    <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="415">
+                                    <representation element="csapi:badMediaType" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="403">
+                                    <representation element="csapi:resizeNotAllowed" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="404">
+                                    <representation element="csapi:itemNotFound" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="409">
+                                    <representation element="csapi:buildInProgress" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="501">
+                                    <representation element="csapi:notImplemented" mediaType="application/xml"/>
+                                </response>
+                            </method>
+                        </resource>
+                        <!-- =====================================
+                                        BACKUP SCHEDULES
+                             ===================================== -->
+                        <resource path="backup_schedule">
+                            <method id="getBackupSchedule" name="GET">
+                                <request>
+                                    <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                                </request>
+                                
+                                <response status="200 203">
+                                    <representation element="csapi:backupSchedule" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>                                    
+                                </response>                                                  
+                                <response status="400">
+                                    <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="500">
+                                    <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="503">
+                                    <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="401">
+                                    <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="404">
+                                    <representation element="csapi:itemNotFound" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="413">
+                                    <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                            </method>
+                            
+                            <method id="setBackupSchedule" name="POST">
+                                <request>
+                                    <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                                    <representation element="csapi:backupSchedule" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </request>
+                                
+                                <response status="204" />                                                  
+                                <response status="400">
+                                    <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="500">
+                                    <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="503">
+                                    <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                    <representation element="csapi:serverCapacityUnavailable" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="401">
+                                    <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="404">
+                                    <representation element="csapi:itemNotFound" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="413">
+                                    <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="415">
+                                    <representation element="csapi:badMediaType" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="409">
+                                    <representation element="csapi:buildInProgress" mediaType="application/xml"/>
+                                    <representation element="csapi:backupOrResizeInProgress" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="403">
+                                    <representation element="csapi:resizeNotAllowed" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="501">
+                                    <representation element="csapi:notImplemented" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                            </method>
+                            
+                            <method id="disableBackupSchedule" name="DELETE">
+                                <request>
+                                    <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                                </request>
+                                
+                                <response status="204" />                                                  
+                                <response status="400">
+                                    <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="500">
+                                    <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="503">
+                                    <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                    <representation element="csapi:serverCapacityUnavailable" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="401">
+                                    <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="404">
+                                    <representation element="csapi:itemNotFound" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="413">
+                                    <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="415">
+                                    <representation element="csapi:badMediaType" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="409">
+                                    <representation element="csapi:buildInProgress" mediaType="application/xml"/>
+                                    <representation element="csapi:backupOrResizeInProgress" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                                <response status="501">
+                                    <representation element="csapi:notImplemented" mediaType="application/xml"/>
+                                    <representation mediaType="application/json"/>
+                                </response>
+                            </method>
+                        </resource>
+                        
+                    </resource>
+                </resource>                
+                <!-- =====================================
+                                    FLAVORS
+                     ===================================== -->
+                <resource path="flavors" id="Flavors">
+                    <method id="listFlavors" name="GET">
+                        <request>
+                            <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                            <param type="xsd:long" style="query" name="changes-since"/>
+                            <param type="xsd:long" style="query" name="offset"/>
+                            <param type="xsd:long" style="query" name="limit"/>
+                        </request>
+                        
+                        <response status="200 203">
+                            <representation element="csapi:flavors" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>                            
+                        </response>                                                  
+                        <response status="400">
+                            <representation element="csapi:badRequest" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="500">
+                            <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="503">
+                            <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="401">
+                            <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="413">
+                            <representation element="csapi:overLimit" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                    </method>
+                    
+                    <resource path="detail">
+                        <method id="listFlavorsDetailed" name="GET">
+                            <request>
+                                <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                                <param type="xsd:long" style="query" name="changes-since"/>
+                                <param type="xsd:long" style="query" name="offset"/>
+                                <param type="xsd:long" style="query" name="limit"/>
+                            </request>
+                            
+                            <response status="200 203">
+                                <representation element="csapi:flavors" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>                            
+                            </response>                                                  
+                            <response status="400">
+                                <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="500">
+                                <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="503">
+                                <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="401">
+                                <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="413">
+                                <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                        </method>
+                    </resource>
+                    
+                    <resource path="{flavorId}">
+                        <param type="xsd:int" style="template" name="flavorId"/>
+                        <method id="getFlavor" name="GET">
+                            <request>                                
+                                <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                            </request>
+                            
+                            <response status="200 203">
+                                <representation element="csapi:flavor" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>                            
+                            </response>                                                  
+                            <response status="400">
+                                <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="500">
+                                <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="503">
+                                <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="401">
+                                <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="404">
+                                <representation element="csapi:itemNotFound" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="413">
+                                <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                        </method>
+                    </resource>
+                </resource>                
+                <!-- =====================================
+                               SHARED IP GROUPS
+                     ===================================== -->                
+                
+                
+                <resource path="shared_ip_groups" id="SharedIpGroups">
+                    <method id="listSharedIpGroups" name="GET">
+                        <request>
+                            <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                            <param type="xsd:long" style="query" name="changes-since"/>
+                            <param type="xsd:long" style="query" name="offset"/>
+                            <param type="xsd:long" style="query" name="limit"/>
+                        </request>
+                        
+                        <response status="200 203">
+                            <representation element="csapi:sharedIpGroups" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>                          
+                        </response>                                                  
+                        <response status="400">
+                            <representation element="csapi:badRequest" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="500">
+                            <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="503">
+                            <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="401">
+                            <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="413">
+                            <representation element="csapi:overLimit" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                    </method>
+                    
+                    <method id="createSharedIpGroup" name="POST">
+                        <request>
+                            <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                            <representation element="csapi:sharedIpGroup" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </request>
+                        
+                        <response status="201">
+                            <representation element="csapi:sharedIpGroup" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>                          
+                        </response>                                                  
+                        <response status="400">
+                            <representation element="csapi:badRequest" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="500">
+                            <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="503">
+                            <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="401">
+                            <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                        <response status="413">
+                            <representation element="csapi:overLimit" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response> 
+                        <response status="415">
+                            <representation element="csapi:badMediaType" mediaType="application/xml"/>
+                            <representation mediaType="application/json"/>
+                        </response>
+                    </method>
+                    
+                    <resource path="detail">
+                        <method id="listSharedIpGroupsDetailed" name="GET">
+                            <request>
+                                <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                                <param type="xsd:long" style="query" name="changes-since"/>
+                                <param type="xsd:long" style="query" name="offset"/>
+                                <param type="xsd:long" style="query" name="limit"/>
+                            </request>
+                            
+                            <response status="200 203">
+                                <representation element="csapi:sharedIpGroups" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>                          
+                            </response>                                                  
+                            <response status="400">
+                                <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="500">
+                                <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="503">
+                                <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="401">
+                                <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="413">
+                                <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                        </method>
+                    </resource>
+                    
+                    <resource path="{sharedIpGroupId}">
+                        <param type="xsd:int" style="template" name="sharedIpGroupId"/>
+                        <method id="getSharedIpGroupDetail" name="GET">
+                            <request>
+                                <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>                                
+                            </request>
+                            
+                            <response status="200 203">
+                                <representation element="csapi:sharedIpGroup" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>                          
+                            </response>                                                  
+                            <response status="400">
+                                <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="500">
+                                <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="503">
+                                <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="401">
+                                <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="413">
+                                <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="404">
+                                <representation element="csapi:itemNotFound" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                        </method>
+                        
+                        <method id="deleteSharedIpGroup" name="DELETE">
+                            <request>
+                                <param required="true" type="xsd:string" style="header" name="X-Auth-Token"/>
+                            </request>
+                            
+                            <response status="204" />                                                  
+                            <response status="400">
+                                <representation element="csapi:badRequest" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="500">
+                                <representation element="csapi:cloudServersFault" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="503">
+                                <representation element="csapi:serviceUnavailable" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="401">
+                                <representation element="csapi:unauthorized" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="413">
+                                <representation element="csapi:overLimit" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                            <response status="404">
+                                <representation element="csapi:itemNotFound" mediaType="application/xml"/>
+                                <representation mediaType="application/json"/>
+                            </response>
+                        </method>
+                    </resource>
+                    
+                </resource>
+                
+            </resource>
+        </resource>
+    </resources>
+</application>

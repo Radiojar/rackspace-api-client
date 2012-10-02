@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-Generate WADL sources</actionName>
+            <displayName>Generate WADL sources</displayName>
+            <goals>
+                <goal>cxf-wadl2java:wadl2java</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-Generate WADL sources (Debug)</actionName>
+            <displayName>Generate WADL sources (Debug)</displayName>
+            <properties>
+                
+                <jpda.listen>maven</jpda.listen>
+                
+                
+            </properties>
+            <goals>
+                <goal>clean</goal>
+                <goal>cxf-wadl2java:wadl2java</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>test.single</actionName>
+            <goals>
+                <goal>test-compile</goal>
+                <goal>surefire:test</goal>
+            </goals>
+            <properties>
+                
+                
+                
+                
+                <test>${packageClassName}</test>
+                
+                
+                
+                
+                <rackspace.apiKey>a417d9462ae7824026e20a0124b24d50</rackspace.apiKey>
+                
+                
+                
+                
+                <rackspace.user>skout</rackspace.user>
+            </properties>
+            <activatedProfiles>
+                <activatedProfile>test-execution</activatedProfile>
+            </activatedProfiles>
+        </action>
+        <action>
+            <actionName>debug.test.single</actionName>
+            <goals>
+                <goal>test-compile</goal>
+                <goal>surefire:test</goal>
+            </goals>
+            <properties>
+                <jpda.listen>true</jpda.listen>
+                <maven.surefire.debug>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address}</maven.surefire.debug>
+                <rackspace.apiKey>a417d9462ae7824026e20a0124b24d50</rackspace.apiKey>
+                <rackspace.user>skout</rackspace.user>
+                <forkMode>once</forkMode>
+                <test>${packageClassName}</test>
+            </properties>
+        </action>
+        
+        
+        
+    </actions>
