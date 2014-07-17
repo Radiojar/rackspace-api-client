@@ -49,7 +49,7 @@ public class CloudServersServiceTest {
         service.getServiceInfo().getLimits();
         // This call should return results from the cache.
         Limits limits = service.getServiceInfo().getLimits();
-        
+
         StringBuilder rateLimits = new StringBuilder();
         for (RateLimit l : limits.getRate().getLimit()) {
             rateLimits.append(l.getVerb()).append('\t')
@@ -57,19 +57,23 @@ public class CloudServersServiceTest {
                       .append(l.getValue()).append('\t')
                       .append(l.getUnit()).append('\n');
         }
-        
+
         LOGGER.info("Rate Limits:\n{}", rateLimits.toString());
-        
+
+        StringBuilder dump = new StringBuilder("id,name,ip,status\n");
         ServerManager serverManager = service.getServerManager();
-        for (int i = 0; i < 3; i++) {
-            
-            EntityList<Server> list = serverManager.createList(true, 0, 1000);
-            while (list.hasNext()) {
-                Server s = list.next();
-                LOGGER.info("Server - ID: {},\t Name: {},\t Status: {}",
-                        new Object[]{s.getId(), s.getName(), s.getStatus()});
-            }
-            
+
+        EntityList<Server> list = serverManager.createList(true, 0, 1000);
+        while (list.hasNext()) {
+            Server s = list.next();
+            dump.append(s.getId()).append(',')
+                .append(s.getName()).append(',')
+                .append(s.getAddresses().getPublic().getIp().get(0).getAddr()).append(',')
+                .append(s.getStatus()).append('\n');
         }
+
+        LOGGER.info("Cloud Server Dump:\n{}", dump);
+
     }
+
 }

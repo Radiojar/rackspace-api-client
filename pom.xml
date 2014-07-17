@@ -18,7 +18,7 @@
         <!-- Test can be skipped by setting the following property to 'true' -->
         <build.skipTests>true</build.skipTests>
         <cxf.version>2.4.2</cxf.version>
-        <gae.version>[1.5.3, )</gae.version>
+        <gae.version>1.8.6</gae.version>
         <aspectj.version>1.6.11</aspectj.version>
     </properties>
 
@@ -198,7 +198,7 @@
             <plugin>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-wadl2java-plugin</artifactId>
-                <version>2.5.0-SNAPSHOT</version>
+                <version>2.5.0</version>
                 <configuration>
                     
                     <sourceRoot>${project.build.directory}/generated-sources/cxf</sourceRoot>                    
@@ -293,14 +293,5 @@
             
         </plugins>
     </build>
-    
-    <pluginRepositories>
-        <!-- Apache snapshot releases -->
-        <pluginRepository>
-            <id>mvnsearch</id>
-            <url>http://repository.apache.org/snapshots/</url>
-        </pluginRepository>
-    </pluginRepositories>
 
-    
 </project>
